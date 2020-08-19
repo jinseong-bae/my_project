@@ -25,7 +25,9 @@ def write_info():
     doc = {
         'model': model,
         'price': price,
-        'mail_address': mail_address
+        'mail_address': mail_address,
+        'flag': 0
+
 
     }
     db.infos.insert_one(doc)
