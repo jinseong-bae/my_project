@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Webpage Title -->
+    <title>현명한 소비자가 되어보자~</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("model").html("");
+            $("price").html("");
+            $("mail_address").html("");
+            $("#reviews-box").html("");
+
+            showOrder();
+        });
+
+        function tracking() {
+            let model = $("#model").val();
+            let price = $("#price").val();
+            let mail_address = $("#mail_address").val();
+
+            if (model == "") {
+                alert("원하시는 제품의 페이지 링크를 입력해주세요!");
+                $("#model").focus();
+                return;
+            }
+            if (price == "") {
+                alert("희망하시는 가격을 입력해주세요!");
+                $("#price").focus();
+                return;
+            }
+            if (mail_address == "") {
+                alert("알림메일을 발송할 메일 주소를 입력해주세요!");
+                $("#mail_address").focus();
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/infos",
+                data: {
+                    'model': model,
+                    'price': price,
+                    'mail_address': mail_address
+                },
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        alert(response["msg"]);
+                        window.location.reload();
+                    }
+                }
+            })
+        }
+
+
+        function showOrder() {
+            $.ajax({
+                type: "GET",
+                url: "/infos",
+                data: {},
+                success: function (response) {
+                    // 2. 요청 성공 여부 확인하기
+                    if (response["result"] == "success") {
+                        let infos = response["infos"];
+                        // 3. 요청 성공했을 때 리뷰를 올바르게 화면에 나타내기
+                        for (let i = 0; i < infos.length; i++) {
+                            makeCard(
+                                infos[i]["model"],
+                                infos[i]["price"],
+                                infos[i]["mail_address"]);
+
+                        }
+                    } else {
+                        alert("정보를 받아오지 못했습니다");
+                    }
+                }
+            })
+        }
+
+
+        function makeCard(model, price, mail) {
+            let tempHtml = `<tr>
+                        <td>${model}</td>
+                        <td>${price}</td>
+                        <td>${mail}</td>
+                    </tr>`;
+            $("#reviews-box").append(tempHtml);
+        }
+
+        function deleteOrder() {
+
+            $.ajax({
+                type: "POST",
+                url: "/delete",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('추적은 여기까지!')
+                        window.location.reload()
+                    }
+                }
+            });
+        }
+
+    </script>
+
+    <style type="text/css">
+        * {
+            font-family: "Do Hyeon", sans-serif;
+        }
+
+        h1,
+        h5 {
+            display: inline;
+        }
+
+        .info {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .review {
+            text-align: center;
+        }
+
+        .reviews {
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div>
+        <h1><br>앗 마르지엘라, 타이어보다 싸다!</h1>
+        <h2></h2>
+        <p>해당 웹사이트에 접속하여 구매를 원하는 제품페이지의 주소와 지불 용의가 있는 가격, 이용자의 메일 주소를 입력해주세요.
+            <br> 원하시는 제품이 해당 가격에 도달할 경우 입력하신 메일로 알림을 보내드립니다! </p>
+
+        <a href="https://www.yoox.com/kr" target="_blank">제품페이지 찾아보기(yoox)</a>
+        <div id="info-box">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">제품 URL</span>
+                </div>
+                <input type="text" class="form-control" id="model">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">가격($)</span>
+                </div>
+                <input type="text" class="form-control" id="price">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">메일 주소</span>
+                </div>
+                <input type="text" class="form-control" id="mail_address">
+            </div>
+        </div>
+
+        <div>
+            <button onclick="tracking()" type="button" class="btn btn-primary">추적 시작!</button>
+        </div>
+
+        <div class="reviews">
+            <table class="table">
+                <h2> 현재 추적중인 정보예요!!</h2>
+
+                <thead>
+                <tr>
+                    <th scope="col">제품 URL</th>
+                    <th scope="col">가격($)</th>
+                    <th scope="col">메일 주소</th>
+
+                </tr>
+                </thead>
+                <tbody id="reviews-box">
+                <tr>
+                    <td>temp</td>
+                    <td>temp</td>
+                    <td>temp</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <button onclick="deleteOrder()" type="button" class="btn btn-primary">추적 그만!</button>
+        </div>
+        <p><br>* "추적 그만!" 버튼을 누르면 실행되던 모든 프로세스를 중단합니다.</p>
+
+    </div>
+
+</div>
+</body>
+
+</html>
