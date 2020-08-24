@@ -53,7 +53,7 @@ def price_hunting():
                 send_email(mail_address)
                 db.infos.update_one({'model': order_URL}, {'$set': {'flag': 1}})
             else:
-                db.infos.update_one({'model': order_URL}, {'$set': {'current_price': price_tag.text[4:9]}})
+                db.infos.update_one({'model': order_URL}, {'$set': {'current_price': price_tag.text[2:9]}})
 
         elif order_URL.startswith("https://www.fwrd"):
             price_tag = soup.select_one(
@@ -63,17 +63,17 @@ def price_hunting():
                 send_email(mail_address)
                 db.infos.update_one({'model': order_URL}, {'$set': {'flag': 1}})
             else:
-                db.infos.update_one({'model': order_URL}, {'$set': {'current_price': price_tag.text.lstrip('$')}})
+                db.infos.update_one({'model': order_URL}, {'$set': {'current_price': price_tag.text}})
 
         elif order_URL.startswith("https://www.balaan"):
             price_tag = soup.select_one(
                 '#price')
-            print('balaan 탐색중!', price_tag.text.lstrip('￦'), price)
-            if price_tag.text.lstrip('￦') <= price:
+            print('balaan 탐색중!', price_tag.text.strip().lstrip('￦'), price)
+            if price_tag.text.strip().lstrip('￦') <= price:
                 send_email(mail_address)
                 db.infos.update_one({'model': order_URL}, {'$set': {'flag': 1}})
             else:
-                db.infos.update_one({'model': order_URL}, {'$set': {'current_price': price_tag.text.lstrip('￦')}})
+                db.infos.update_one({'model': order_URL}, {'$set': {'current_price': price_tag.text.strip()}})
 
 
 

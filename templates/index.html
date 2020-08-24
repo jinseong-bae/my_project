@@ -1,27 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko">
-
+<html lang="KO">
 <head>
-    <!-- Webpage Title -->
-    <title></title>
+    <meta charset="UTF-8">
+    <title>CodePen - Sign-Up/Login Form</title>
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="../static/style.css?afterrrrrrr">
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-
-    <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
-
-    <!-- 구글폰트 -->
-    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 
     <script type="text/javascript">
 
@@ -29,7 +19,7 @@
             $("model").html("");
             $("price").html("");
             $("mail_address").html("");
-            $("#reviews-box").html("");
+            $("#order-box").html("");
 
             showOrder();
         });
@@ -83,10 +73,10 @@
                         let infos = response["infos"];
                         for (let i = 0; i < infos.length; i++) {
                             makeCard(
-                                infos[i]["model"],
+                                i+1.,
                                 infos[i]["price"],
-                                infos[i]["mail_address"]),
-                                infos[i]["current_price"];
+                                infos[i]["mail_address"],
+                                infos[i]["current_price"]);
 
                         }
                     } else {
@@ -99,12 +89,12 @@
 
         function makeCard(model, price, mail, current) {
             let tempHtml = `<tr>
-                        <td>${model}</td>
-                        <td>${price}</td>
-                        <td>${mail}</td>
-                        <td>${current}</td>
-                    </tr>`;
-            $("#reviews-box").append(tempHtml);
+                            <td>${model}</td>
+                            <td>${price}</td>
+                            <td>${mail}</td>
+                            <td>${current}</td>
+                        </tr>`;
+            $("#order-box").append(tempHtml);
         }
 
         function deleteOrder() {
@@ -124,103 +114,103 @@
 
     </script>
 
-    <style type="text/css">
-        * {
-            font-family: "Do Hyeon", sans-serif;
-        }
-
-        h1,
-        h5 {
-            display: inline;
-        }
-
-        .info {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .review {
-            text-align: center;
-        }
-
-        .reviews {
-            margin-top: 100px;
-        }
-    </style>
 </head>
-
 <body>
-<div class="container">
+<!-- partial:index.partial.html -->
+<div class="form">
 
-    <div>
-        <h1><br>앗 마르지엘라, 타이어보다 싸다!</h1>
-        <h2></h2>
-        <p>해당 웹사이트에 접속하여 구매를 원하는 제품페이지의 주소와 지불 용의가 있는 가격, 이용자의 메일 주소를 입력해주세요.
-            <br> 원하시는 제품이 해당 가격에 도달할 경우 입력하신 메일로 알림을 보내드립니다! </p>
-        <p>하단의 링크에 접속하여 원하시는 제품을 찾아보세요!
-            <br>가격은 해당 사이트에 표기돼있는 화폐의 기준에 따라 작성해주세요
-            <br>ex)가격이 $로 표시된 페이지는 $기준 희망가격 작성</p>
-        <a href="https://www.yoox.com/kr" target="_blank">"YOOX.COM"</a><br>
-        <a href="https://www.fwrd.com/?navsrc=logo" target="_blank">"FORWARD by Elyse Walker"</a><br>
-        <a href="https://www.balaan.co.kr/shop/main/index.php?" target="_blank">"BALLAN"</a>
+    <ul class="tab-group">
+        <li class="tab active"><a href="#signup">가격 추적!</a></li>
+        <li class="tab"><a href="#login">추적 현황!</a></li>
+    </ul>
 
-        <p></p>
+    <div class="tab-content">
+        <div id="signup">
+            <h1>PRICE HUNTER</h1>
+            <p class="h2">밑에 제시된 웹사이트에 접속하여 구매를 원하는 제품페이지의 주소와
+                <br>지불 용의가 있는 가격, 이용자의 메일 주소를 입력해주세요.
+                <br> 원하시는 제품이 해당 가격에 도달할 경우 입력하신 메일로 알림을 보내드립니다! </p>
+            <p class="dsp"> <br>*가격은 해당 사이트에 표기돼있는 화폐의 기준에 따라 작성해주세요</p>
+                <p class="example">ex)가격이 $로 표시된 페이지는 $기준 희망가격 작성</p>
+            <a href="https://www.yoox.com/kr" target="_blank">"YOOX.COM"</a><br>
+            <a href="https://www.fwrd.com/?navsrc=logo" target="_blank">"FORWARD by Elyse Walker"</a><br>
+            <a href="https://www.balaan.co.kr/shop/main/index.php?" target="_blank">"BALLAN"</a>
 
-        <div id="info-box">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">제품 URL</span>
+            <p></p>
+
+            <form action="/" method="post">
+
+
+                <div class="field-wrap">
+                    <label>
+                        제품페이지 주소<span class="req">*</span>
+                    </label>
+                    <input type="text" id="model" required autocomplete="off"/>
                 </div>
-                <input type="text" class="form-control" id="model">
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">가격</span>
+
+                <div class="field-wrap">
+                    <label>
+                        가격<span class="req">*</span>
+                    </label>
+                    <input type="text" id="price" required autocomplete="off"/>
                 </div>
-                <input type="text" class="form-control" id="price">
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">메일 주소</span>
+
+                <div class="field-wrap">
+                    <label>
+                        이메일 주소<span class="req">*</span>
+                    </label>
+                    <input type="email" id="mail_address" required autocomplete="off"/>
                 </div>
-                <input type="text" class="form-control" id="mail_address">
-            </div>
+
+                <button onclick="tracking()" type="button" class="button button-block"/>
+                Get Started</button>
+
+            </form>
+
         </div>
 
-        <div>
-            <button onclick="tracking()" type="button" class="btn btn-primary">추적 시작!</button>
+        <div id="login">
+            <h1>현재 추적중인 정보예요!</h1>
+
+            <form action="/" method="post">
+
+                <div class="reviews">
+                    <table class="rwd-table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>희망 가격</th>
+                            <th>이메일</th>
+                            <th>현재 가격</th>
+                        </tr>
+                        </thead>
+                        <tbody id="order-box">
+                        <tr>
+                            <td>temp</td>
+                            <td>temp</td>
+                            <td>temp</td>
+                            <td>temp</td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div>
+                    <button onclick="deleteOrder()" type="button" class="button button-block"/>
+                    STOP TRACKING!</button></div>
+                <p class="stop-track"><br>* "STOP TRACKING!" 버튼을 누르면 실행되던 모든 프로세스를 중단합니다.</p>
+
+
+            </form>
+
         </div>
 
-        <div class="reviews">
-            <table class="table">
-                <h2> 현재 추적중인 정보예요!!</h2>
+    </div><!-- tab-content -->
 
-                <thead>
-                <tr>
-                    <th scope="col">제품 URL</th>
-                    <th scope="col">가격</th>
-                    <th scope="col">메일 주소</th>
-                    <th scope="col">현재 제품가격</th>
+</div> <!-- /form -->
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="../static/script.js"></script>
 
-                </tr>
-                </thead>
-                <tbody id="reviews-box">
-                <tr>
-                    <td>temp</td>
-                    <td>temp</td>
-                    <td>temp</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <button onclick="deleteOrder()" type="button" class="btn btn-primary">추적 그만!</button>
-        </div>
-        <p><br>* "추적 그만!" 버튼을 누르면 실행되던 모든 프로세스를 중단합니다.</p>
-
-    </div>
-
-</div>
 </body>
-
 </html>
