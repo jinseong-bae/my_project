@@ -26,9 +26,8 @@ def write_info():
         'model': model,
         'price': price,
         'mail_address': mail_address,
+        'current_price': 0,
         'flag': 0
-
-
     }
     db.infos.insert_one(doc)
     return jsonify({'result': 'success', 'msg': '이제 메일을 기다려볼까요?!'})
