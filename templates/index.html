@@ -2,7 +2,7 @@
 <html lang="KO">
 <head>
     <meta charset="UTF-8">
-    <title>CodePen - Sign-Up/Login Form</title>
+    <title>똑똑한 직구, PRICE HUNTER에서!</title>
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="../static/style.css?afterrrrrrr">
@@ -73,7 +73,7 @@
                         let infos = response["infos"];
                         for (let i = 0; i < infos.length; i++) {
                             makeCard(
-                                i+1.,
+                                i + 1.,
                                 infos[i]["price"],
                                 infos[i]["mail_address"],
                                 infos[i]["current_price"]);
@@ -113,6 +113,9 @@
         }
 
     </script>
+    <meta property="og:title" content="PRICE HUNTER!"/>
+    <meta property="og:description" content="똑똑하게 직구하는 가장 쉬운 방법, PRICE HUNTER!"/>
+    <meta property="og:image" content="{{ url_for('static', filename='ogimage.png') }}"/>
 
 </head>
 <body>
@@ -130,8 +133,8 @@
             <p class="h2">밑에 제시된 웹사이트에 접속하여 구매를 원하는 제품페이지의 주소와
                 <br>지불 용의가 있는 가격, 이용자의 메일 주소를 입력해주세요.
                 <br> 원하시는 제품이 해당 가격에 도달할 경우 입력하신 메일로 알림을 보내드립니다! </p>
-            <p class="dsp"> <br>*가격은 해당 사이트에 표기돼있는 화폐의 기준에 따라 작성해주세요</p>
-                <p class="example">ex)가격이 $로 표시된 페이지는 $기준 희망가격 작성</p>
+            <p class="dsp"><br>*가격은 해당 사이트에 표기돼있는 화폐단위의 기준에 따라 작성해주세요</p>
+            <p class="example">ex)가격이 $로 표시된 페이지는 $기준 희망가격 작성</p>
             <a href="https://www.yoox.com/kr" target="_blank">"YOOX.COM"</a><br>
             <a href="https://www.fwrd.com/?navsrc=logo" target="_blank">"FORWARD by Elyse Walker"</a><br>
             <a href="https://www.balaan.co.kr/shop/main/index.php?" target="_blank">"BALLAN"</a>

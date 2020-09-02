@@ -10,7 +10,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-client = MongoClient('localhost', 27017)
+client = MongoClient('mongodb://sparta:sparta123!@localhost', 27017)
 db = client.dbjinseong
 
 
@@ -19,11 +19,14 @@ def send_email(you):
     my_password = "aeadzyrrgsnbremx"
 
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = "가격추적완료!!"
+    msg['Subject'] = "[PRICE HUNTER] 선택하신 상품이 목표가격에 도달하였습니다!!"
     msg['From'] = me
     msg['To'] = you
 
-    html = '<html><body><p> 축하합니다! 해당 제품의 가격이 희망가격의 이하로 설정되었습니다! <br>지금 바로 상품을 확인하세요! </p></body></html>'
+    html = '<html>' \
+           '<body>' \
+           '<p><img src="https://img1.daumcdn.net/thumb/R720x0/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fliveboard%2Fanimalpeople%2F539cc950b2e3467eb7cd8b010e562257.JPG"/> <br> 축하합니다!<br> 선택하신 상품이 목표가격에 도달했습니다! <br> 지금 바로 상품을 확인하세요! </p>' \
+           '</body></html>'
     part2 = MIMEText(html, 'html')
 
     msg.attach(part2)
